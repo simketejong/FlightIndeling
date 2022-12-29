@@ -20,6 +20,16 @@ def AppendFlight():
         "Grote" : 0,
         "Personen" : []
     })
+def AppendPersoon():
+    Persoon.append({ 
+        "nummer" : 1,
+        "naam" : "",
+        "hcp" : "",
+        "email" : "",
+        "met_wie_gespeeld" : [],
+        "WelkeFlight" : [],
+        "WelkeDag" : []
+})
 
 def WieOhWie(Dag,lid,nummer, Grote):
     Dag=Dag+1
@@ -52,34 +62,12 @@ def WieOhWie(Dag,lid,nummer, Grote):
     print(Dag,lid,nummer,Grote,Kandidaat)        
 
 
-FlightIndeling.append({
-    "Dag" : 0,
-    "Flight" : 0,
-    "Grote" : 0,
-    "Personen" : []
-})
-Persoon.append({ 
-    "nummer" : 1,
-    "naam" : "",
-    "hcp" : "",
-    "email" : "",
-    "met_wie_gespeeld" : [],
-    "WelkeFlight" : [],
-    "WelkeDag" : []
-})
+AppendFlight()
+AppendPersoon()
 for x in range(AantalPersonen):
-    Persoon.append({ 
-    "nummer" : 1,
-    "naam" : "",
-    "hcp" : "",
-    "email" : "",
-    "met_wie_gespeeld" : [],
-    "WelkeFlight" : [],
-    "WelkeDag" : []
-})
+    AppendPersoon()
     Persoon[x].update({"nummer": x})
     Persoon[x].update({"naam": x+1})
-#    print("Persoon = ",Persoon[x])
 
 for Dag in range(AantalSpeelDagen ):
     nummer = 0    
