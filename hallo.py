@@ -1,6 +1,6 @@
 import random
 
-AantalPersonen = 10
+AantalPersonen = 14
 AantalSpeelDagen = 4
 FlightsPerDag = 4
 MaximaleFlightGrote = 4
@@ -33,28 +33,30 @@ P = {
 
 def WieOhWie(Dag,lid,nummer, Grote):
     Dag=Dag+1
+    print(Dag,lid,nummer,Grote)
     FlightIndeling.append(P)
     FlightIndeling[Dag].update({"Dag": Dag})
     FlightIndeling[Dag].update({"Flight": nummer})
     FlightIndeling[Dag].update({"Grote": Grote})
-    for i in range(Grote):
-        GaDoor = True
-        Tijd = 1001
-        while GaDoor:
-            Kandidaat = random.randint(0, 9)            
-            if not Dag in Persoon[Kandidaat]["WelkeDag"]:
-                Tijd = Tijd - 1
-                if Tijd <= 0:
-                    GaDoor = False
-                    print("Kandidaat : ", Kandidaat, "niet gelukt in " , FlightIndeling[Dag])
-                if not Kandidaat in Persoon[Kandidaat]["met_wie_gespeeld"]:
-                    Persoon[Kandidaat]["met_wie_gespeeld"].append(Kandidaat)
-                    Persoon[Kandidaat]["WelkeFlight"].append([nummer])
-                    Persoon[Kandidaat]["WelkeDag"].append([Dag])
-                if not Kandidaat in FlightIndeling[Dag]["Personen"]:
-                    FlightIndeling[Dag]["Personen"].append(Kandidaat)
-                    GaDoor = False
-                #print("Kandidaat : ",Kandidaat)
+    GaDoor = True
+    Tijd = 1001
+    while GaDoor:
+        Kandidaat = random.randint(0, 13)            
+        if not Dag in Persoon[Kandidaat]["WelkeDag"]:
+            Tijd = Tijd - 1
+            if Tijd <= 0:
+                GaDoor = False
+                print("Kandidaat : ", Kandidaat, "niet gelukt in " , FlightIndeling[Dag])
+            if not Kandidaat in Persoon[Kandidaat]["met_wie_gespeeld"]:
+                Persoon[Kandidaat]["met_wie_gespeeld"].append(Kandidaat)
+                Persoon[Kandidaat]["WelkeFlight"].append([nummer])
+                Persoon[Kandidaat]["WelkeDag"].append([Dag])
+                GaDoor = False
+                #print(Persoon)
+            if not Kandidaat in FlightIndeling[Dag]["Personen"]:
+                FlightIndeling[Dag]["Personen"].append(Kandidaat)
+        #print("Kandidaat : ",Kandidaat)
+    print(Dag,lid,nummer,Grote,Kandidaat)        
 
 
 FlightIndeling.append(P)
@@ -73,7 +75,7 @@ for Dag in range(AantalSpeelDagen ):
         for lid in range(Grote):
 #            print("Dag: ", Dag ,"flights", z , " Aantal in die flight ", x, "nummer ", nummer)
             WieOhWie(Dag,lid,nummer,Grote)
-print(FlightIndeling)
+#print(FlightIndeling)
 
 
 
