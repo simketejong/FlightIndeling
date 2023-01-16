@@ -61,7 +61,6 @@ def WieOhWie(Dag,lid,nummer, Grote):
             print("Kandidaat : ", Kandidaat, "speelt al op die dag" , Dag)           
     print(Dag,lid,nummer,Grote,Kandidaat)        
 
-
 AppendFlight()
 AppendPersoon()
 for x in range(AantalPersonen):
