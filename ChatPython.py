@@ -1,5 +1,6 @@
 from itertools import permutations
 import itertools
+import random
 
 def optimize_groups(players):
     groups_of_four = players // 4
@@ -16,27 +17,33 @@ def optimize_groups(players):
    
     return groups_of_four, groups_of_three
 
-def schedule_golf_games(num_players, num_days):
-    # Create a list of players
-    players = list(range(1, num_players + 1))
+players = ["Player " + str(i+1) for i in range(16)]
 
-    # Create a list to store the schedule
-    schedule = []
+# split players into groups of 4
+groups = [players[i:i+4] for i in range(0, len(players), 4)]
 
-    # Iterate through each day
-    for day in range(num_days):
-        # Shuffle the list of players to randomly assign teams
-        import random
-        random.shuffle(players)
+# create a list of all possible matches between players in each group
+matches = [list(itertools.combinations(group, 4)) for group in groups]
 
-        # Split the players into teams of 4 and 3
-        team_4 = players[:4]
-        team_3 = players[4:]
+# flatten the list of matches
+matches = [match for group in matches for match in group]
 
-        # Add the teams to the schedule
-        schedule.append((team_4, team_3))
+# shuffle the matches for randomness
+random.shuffle(matches)
 
-    return schedule
+# create a list to store the matches for each day
+tournament = []
+for i in range(4):
+    day_matches = []
+    for j in range(4):
+        match = matches.pop()
+        # check if players in the match have played before
+        if match[0] not in [player for match in day_matches for player in match] and match[1] not in [player for match in day_matches for player in match] and match[2] not in [player for match in day_matches for player in match] and match[3] not in [player for match in day_matches for player in match]:
+            day_matches.append(match)
+    tournament.append(day_matches)
 
-# Example usage:
-print(schedule_golf_games(10, 5))
+# print the matches for each day
+for i in range(4):
+    print("Day", i+1)
+    for j in range(4):
+        print(tournament[i][j])
